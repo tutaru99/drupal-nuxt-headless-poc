@@ -74,6 +74,9 @@
                 <!-- hero component -->
                 <Hero v-else-if="content.bundle === 'hero'" :data="content" />
 
+                <!-- hero component -->
+                <Video v-else-if="content.bundle === 'video'" :data="content" />
+
                 <!-- only if none other match -->
                 <UnknownBlock v-else :data="content"></UnknownBlock>
               </v-col>
@@ -87,65 +90,65 @@
 
 <script>
 import axios from "axios";
+import Video from "./video.vue";
 
 export default {
-  data() {
-    return {
-      drupalData: [],
-      layoutBuilder: [],
-      unevenSection: null,
-    };
-  },
-  methods: {
-    async getDrupalData() {
-      axios
-        .get("https://headless.drupal.dk/?format=json&region=content")
-        .then((response) => {
-          this.drupalData = response.data;
-          this.layoutBuilder = this.drupalData[0].layout_builder__layout;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    data() {
+        return {
+            drupalData: [],
+            layoutBuilder: [],
+            unevenSection: null,
+        };
     },
-  },
-
-  mounted() {
-    this.getDrupalData();
-  },
-
-  computed: {
-    assignColumns8to4() {
-      // rotate between 4 and 8
-      let previouValue = null;
-      let newValue = null;
-      return function (value) {
-        if (previouValue === value) {
-          newValue = value === 4 ? 8 : 4;
-        } else {
-          newValue = value;
-        }
-        previouValue = newValue;
-        return newValue;
-      };
+    methods: {
+        async getDrupalData() {
+            axios
+                .get("https://headless.drupal.dk/?format=json&region=content")
+                .then((response) => {
+                this.drupalData = response.data;
+                this.layoutBuilder = this.drupalData[0].layout_builder__layout;
+            })
+                .catch((error) => {
+                console.log(error);
+            });
+        },
     },
-
-    assignColumns4to4() {
-      // rotate between 8 and 4
-      let previouValue = null;
-      let newValue = null;
-      return function (value) {
-        if (previouValue === value) {
-          newValue = value === 8 ? 4 : 8;
-        } else {
-          newValue = value;
-        }
-        previouValue = newValue;
-        return newValue;
-      };
+    mounted() {
+        this.getDrupalData();
     },
-
-  },
+    computed: {
+        assignColumns8to4() {
+            // rotate between 4 and 8
+            let previouValue = null;
+            let newValue = null;
+            return function (value) {
+                if (previouValue === value) {
+                    newValue = value === 4 ? 8 : 4;
+                }
+                else {
+                    newValue = value;
+                }
+                previouValue = newValue;
+                return newValue;
+            };
+        },
+        assignColumns4to4() {
+            // rotate between 8 and 4
+            let previouValue = null;
+            let newValue = null;
+            return function (value) {
+                if (previouValue === value) {
+                    newValue = value === 8 ? 4 : 8;
+                }
+                else {
+                    newValue = value;
+                }
+                previouValue = newValue;
+                return newValue;
+            };
+        },
+    },
+    components: { Video }
 };
 </script>
 
