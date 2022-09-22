@@ -2,7 +2,8 @@
   <div :class="['layout-block--' + data.bundle]">
     <v-divider></v-divider>
     <h3>Unknown Block</h3>
-    {{ data.bundle }}
+    {{ data.bundle }} <br>
+    {{ data }}
     <v-divider></v-divider>
   </div>
 </template>

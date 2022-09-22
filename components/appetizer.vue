@@ -1,20 +1,22 @@
 <template>
   <div :class="['layout-block--' + data.bundle]">
-    <h3>Hero Component</h3>
-    <div v-html="data.field_hero.field_text"></div>
-
-    <p>text position{{ data.field_hero.field_text_position }}</p>
-    <p>{{ data.field_hero.field_cta }}</p>
-
-    <NuxtLink :to="`${data.field_hero.field_cta.url}`">
+    <h3>Appetizer Component</h3>
+    <h1>{{ data.field_appetizer_headline }}</h1>
+    <br />
+    <div v-html="data.field_appetizer_text"></div>
+    <br />
+    {{ data.field_appetizer_cta }} - (figure out btn target=blank)<br />
+    <nuxt-link :to="data.field_appetizer_cta.url" target="_blank">
       <v-btn color="primary purple px-15" dark>{{
-        data.field_hero.field_cta.title
+        data.field_appetizer_cta.title
       }}</v-btn>
-    </NuxtLink>
+    </nuxt-link>
+    <br />
+    text position - {{ data.field_appetizer_text_alignment }}
 
     <picture>
       <div
-        v-for="el in data.field_hero.field_background.field_media_image.sources"
+        v-for="el in data.field_appetizer_image.field_media_image.sources"
         :key="el.id"
       >
         <source
@@ -26,7 +28,7 @@
       <img
         v-bind:src="
           'https://headless.drupal.dk' +
-          data.field_hero.field_background.field_media_image.img_element.uri
+          data.field_appetizer_image.field_media_image.img_element.uri
         "
         @error="handleBrokenImageError"
       />
