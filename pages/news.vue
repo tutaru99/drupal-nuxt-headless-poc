@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <h1>News Overview!</h1>
     <div class="wrapper d-flex">
@@ -118,4 +118,4 @@ h1 {
   color: #42b983;
   font-size: 16px;
 }
-</style>
+</style> -->

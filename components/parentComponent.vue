@@ -15,23 +15,9 @@
             'spacing-bottom--' + section.layout_settings.column_spacing_bottom,
           ]"
         >
-          <!-- {{ section.layout_id }} -->
-          <!-- {{section.layout_settings.column_widths}} -->
-
-          <!-- TODO DEFINE ALL POSSBILE COL SELECTION OPTIONS for section
-            67 - 33% HOW?!?!?!? mb on mounted trigger function and see what happens
-            33 - 67%
-          -->
-
           <v-col
             cols="12"
-            :md="[
-              (section.layout_settings.column_widths == '33-33-33' ? 4 : '')
-                | (section.layout_settings.column_widths == '50-50' ? 6 : '')
-                | (section.layout_settings.column_widths == '67-33' ? assignColumns8to4(8) : '')
-                | (section.layout_settings.column_widths == '33-67' ? assignColumns4to4(4) : '') |
-                (section.layout_settings.column_widths == '' ? 12 : ''),
-            ]"
+            :md="assignMdCollumnsHandler(section.layout_settings.column_widths)"
             sm="12"
             v-for="region in section.regions"
             :key="region.id"
@@ -75,7 +61,7 @@
                 <Hero v-else-if="content.bundle === 'hero'" :data="content" />
 
                 <!-- hero component -->
-                <Video v-else-if="content.bundle === 'video'" :data="content" />
+                <!-- <Video v-else-if="content.bundle === 'video'" :data="content" /> -->
 
                 <!-- only if none other match -->
                 <UnknownBlock v-else :data="content"></UnknownBlock>
@@ -90,65 +76,82 @@
 
 <script>
 import axios from "axios";
-import Video from "./video.vue";
 
 export default {
-    data() {
-        return {
-            drupalData: [],
-            layoutBuilder: [],
-            unevenSection: null,
-        };
+  props: {
+    md: {
+      type: Array | Object,
+      default: () => ({}),
     },
-    methods: {
-        async getDrupalData() {
-            axios
-                .get("https://headless.drupal.dk/?format=json&region=content")
-                .then((response) => {
-                this.drupalData = response.data;
-                this.layoutBuilder = this.drupalData[0].layout_builder__layout;
-            })
-                .catch((error) => {
-                console.log(error);
-            });
-        },
+  },
+  data() {
+    return {
+      drupalData: [],
+      layoutBuilder: [],
+      unevenSection: null,
+    };
+  },
+  methods: {
+    assignMdCollumnsHandler(colValue) {
+      if (colValue == "33-33-33") {
+        return 4;
+      } else if (colValue == "50-50") {
+        return 6;
+      } else if (colValue == "67-33") {
+        return this.assignColumns8to4(8);
+      } else if (colValue == "33-67") {
+        return this.assignColumns4to8(4);
+      } else if (colValue == "") {
+        return 12;
+      }
     },
-    mounted() {
-        this.getDrupalData();
+
+    async getDrupalData() {
+      axios
+        .get("https://headless.drupal.dk/?format=json&region=content")
+        .then((response) => {
+          this.drupalData = response.data;
+          this.layoutBuilder = this.drupalData[0].layout_builder__layout;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    computed: {
-        assignColumns8to4() {
-            // rotate between 4 and 8
-            let previouValue = null;
-            let newValue = null;
-            return function (value) {
-                if (previouValue === value) {
-                    newValue = value === 4 ? 8 : 4;
-                }
-                else {
-                    newValue = value;
-                }
-                previouValue = newValue;
-                return newValue;
-            };
-        },
-        assignColumns4to4() {
-            // rotate between 8 and 4
-            let previouValue = null;
-            let newValue = null;
-            return function (value) {
-                if (previouValue === value) {
-                    newValue = value === 8 ? 4 : 8;
-                }
-                else {
-                    newValue = value;
-                }
-                previouValue = newValue;
-                return newValue;
-            };
-        },
+  },
+  mounted() {
+    this.getDrupalData();
+  },
+  computed: {
+    assignColumns8to4() {
+      // rotate between 4 and 8
+      let previouValue = null;
+      let newValue = null;
+      return function (value) {
+        if (previouValue === value) {
+          newValue = value === 4 ? 8 : 4;
+        } else {
+          newValue = value;
+        }
+        previouValue = newValue;
+        return newValue;
+      };
     },
-    components: { Video }
+
+    assignColumns4to8() {
+      // rotate between 8 and 4
+      let previouValue = null;
+      let newValue = null;
+      return function (value) {
+        if (previouValue === value) {
+          newValue = value === 8 ? 4 : 8;
+        } else {
+          newValue = value;
+        }
+        previouValue = newValue;
+        return newValue;
+      };
+    },
+  },
 };
 </script>
 

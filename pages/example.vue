@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h3>might need a condition to stop nav recursion</h3>
+    <h3>Navigation Component</h3>
     <NavigationMenu v-for="node in drupalHeaderData.items" :key="node.id" :node="node" />
     <ParentComponent />
   </v-container>

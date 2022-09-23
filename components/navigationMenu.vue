@@ -30,15 +30,12 @@ export default {
       const { below } = this.node;
 
       if (below.length == 0) {
-        console.log('no children - is empty', below);
         return false;
       }
       else if (!below.length) {
-        console.log('has children', below);
         return true;
       }
       else {
-        console.log('shouldnt be ever hit')
         return;
       }
     },
