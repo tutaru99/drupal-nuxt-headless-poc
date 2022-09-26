@@ -2,11 +2,10 @@
   <div>
     <ul>
       <li>
-        <span class="purple"> {{ node?.title }}</span> -
-        <span class="blue">{{ node?.url }}</span>
+        <nuxt-link color="#C9013E" :to="node?.url">{{ node?.title }}</nuxt-link>
       </li>
       <div v-if="hasChildren">
-        <navigationMenu
+        <NavigationMenuItem
           v-for="child in node?.below"
           :key="child.id"
           :node="child"
@@ -31,11 +30,9 @@ export default {
 
       if (below.length == 0) {
         return false;
-      }
-      else if (!below.length) {
+      } else if (!below.length) {
         return true;
-      }
-      else {
+      } else {
         return;
       }
     },

@@ -1,41 +1,14 @@
 <template>
   <v-container>
-    <h3>Navigation Component</h3>
-    <NavigationMenu v-for="node in drupalHeaderData.items" :key="node.id" :node="node" />
+    <v-row class="pb-5">
+      <TheHeader />
+    </v-row>
     <ParentComponent />
   </v-container>
 </template>
 
 
-<script>
-import axios from "axios";
-export default {
-  data() {
-    return {
-      drupalHeaderData: {},
-    };
-  },
-  methods: {
-    getHeader() {
-      axios
-        .get("https://headless.drupal.dk/?format=json&region=header")
-        .then((response) => {
-          this.drupalHeaderData = response.data;
-          console.log("header", this.drupalHeaderData);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  },
-  mounted() {
-    this.getHeader();
-  },
-};
-</script>
+
 
 <style lang="scss">
-h3 {
-  color: red;
-}
 </style>

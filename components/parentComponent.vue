@@ -1,8 +1,7 @@
 <template>
-  <v-container class="text-center">
+  <v-container>
     <v-row no-gutters>
       <v-col cols="12" md="12">
-        <h1 class="text-center">Parent Component</h1>
         <v-row
           v-for="section in layoutBuilder"
           :key="section.id"
