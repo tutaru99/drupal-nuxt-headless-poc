@@ -14,8 +14,28 @@
               'https://headless.drupal.dk' +
               article.field_list_media.field_media_image.img_element.uri
             "
-            height="200px"
           ></v-img>
+
+
+              <!-- TESTING DYNAMIC IMG SRCSET -->
+                <!-- <picture>
+                  <div v-for="imageSrcset in article.field_list_media.field_media_image.sources" :key="imageSrcset.id" >
+                    <source
+                      v-if="imageSrcset.srcset"
+                      :media="imageSrcset.media"
+                      :srcset="`https://headless.drupal.dk${imageSrcset.srcset}`"
+                    />
+                  </div>
+
+                    <img
+                      v-bind:src="
+                        'https://headless.drupal.dk' +
+                        article.field_list_media.field_media_image.img_element.uri
+                      "
+                      @error="handleBrokenImageError"
+                    />
+                  </picture> -->
+
 
           <v-card-title>{{ article.title }}</v-card-title>
 
@@ -37,6 +57,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      articles: [],
+    };
   },
 };
 </script>

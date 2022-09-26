@@ -1,7 +1,6 @@
 <template>
   <div :class="['layout-block--' + data.bundle]">
     <h3>Image Component</h3>
-    <!-- if image link is broken -->
     <picture>
       <div
         v-for="el in data.field_image_media.field_media_image.sources"
