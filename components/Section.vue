@@ -10,8 +10,8 @@
             section.layout_id,
             'column-widths--' + section.layout_settings.column_widths,
             section.layout_settings.color_theme,
-            'spacing-top--' + section.layout_settings.column_spacing_top,
-            'spacing-bottom--' + section.layout_settings.column_spacing_bottom,
+            section.layout_settings.column_spacing_top,
+            section.layout_settings.column_spacing_bottom,
           ]"
         >
           <v-col
@@ -24,7 +24,6 @@
             <!-- Dynamic classes constructor by @Soren on sections-->
             <v-row>
               <v-col v-for="content in region" :key="content.id">
-                <!-- <h1> {{ content.bundle }} - type of component (content/block types)</h1> -->
 
                 <!-- if content.build is article  -->
                 <Articles
@@ -157,5 +156,35 @@ export default {
 <style lang="scss">
 h3 {
   color: red;
+}
+
+.section {
+  &--spacing-top {
+    &-large {
+      padding-top: 6rem;
+    }
+
+    &-medium {
+      padding-top: 4rem;
+    }
+
+    &-small {
+      padding-top: 2rem;
+    }
+  }
+
+  &--spacing-bottom {
+    &-large {
+      padding-bottom: 6rem;
+    }
+
+    &-medium {
+      padding-bottom: 4rem;
+    }
+
+    &-small {
+      padding-bottom: 2rem;
+    }
+  }
 }
 </style>

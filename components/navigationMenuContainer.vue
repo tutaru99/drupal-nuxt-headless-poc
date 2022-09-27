@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="['layout-block-navigation--' + drupalHeaderData.menu_name]">
     <NavigationMenuItem v-for="node in drupalHeaderData.items" :key="node.id" :node="node" />
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
   },
   mounted() {
     this.getHeader();
+    console.log("header", this.drupalHeaderData);
   },
 };
 </script>

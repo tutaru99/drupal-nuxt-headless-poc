@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>The header (needs logic to handle inner vs outgoing links)</h1>
+  <div class="layout-block-navigation">
     <NavigationMenuContainer />
   </div>
 </template>

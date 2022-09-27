@@ -3,12 +3,9 @@
     <v-row class="pb-5">
       <TheHeader />
     </v-row>
-    <ParentComponent />
+    <Section />
   </v-container>
 </template>
-
-
-
 
 <style lang="scss">
 </style>
