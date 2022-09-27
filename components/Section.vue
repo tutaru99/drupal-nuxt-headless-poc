@@ -106,7 +106,7 @@ export default {
 
     async getDrupalData() {
       axios
-        .get("https://headless.drupal.dk/?format=json&region=content")
+      .get(`https://headless.drupal.dk${this.$route.path}?format=json&region=content`)
         .then((response) => {
           this.drupalData = response.data;
           this.layoutBuilder = this.drupalData[0].layout_builder__layout;

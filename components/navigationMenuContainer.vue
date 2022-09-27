@@ -18,7 +18,6 @@ export default {
         .get("https://headless.drupal.dk/?format=json&region=header")
         .then((response) => {
           this.drupalHeaderData = response.data;
-          console.log("header", this.drupalHeaderData);
         })
         .catch((error) => {
           console.log(error);
@@ -27,7 +26,6 @@ export default {
   },
   mounted() {
     this.getHeader();
-    console.log("header", this.drupalHeaderData);
   },
 };
 </script>

@@ -28,9 +28,6 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    console.log("button data", this.data);
-  },
 };
 </script>
 
